@@ -1,0 +1,100 @@
+h = {1=>0, 2=>0, 3=>0, 4=>0, 5=>0, 6=>0}
+h[3]+=2
+h[1] += 1
+rand(0..5)
+rand(1..6)
+range(1..6)
+1..6
+1..6.to_a
+(1..6).to_a
+Hash.new(0)
+h = {}
+h
+h.fetch(:key)
+h[:key]
+if nil
+if true
+puts "yes"
+s = 'abcdefg'
+for c in s
+puts c
+l = ['X','/']
+l.contains('c')
+s = 'abcdefghij'
+s.split(/./)
+s.to_a
+s.split(//)
+sa = s.split(//)
+sa2 = sa.dup
+sa
+sa2
+l = [1,2,3,4,5,6,7,8,9]
+l[1..2]
+l = [1]
+l[0..1]
+1.to_i
+l = [1,2,3,4]
+l=[]
+l[0..0]
+ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split(//)
+R1 = "EKMFLGDQVZNTOWYHXUSPAIBRCJ".split(//)
+*ALPHABET
+Hash[ALPHABET.zip(R1)]
+ALPHABET.zip(R1)
+PageRevision.all
+PageRevision.all.each {|r| r.destroy }
+if !nil
+puts 'yes'
+defined?
+defined
+defined? (String.new)
+defined? (String.newff)
+['foo'].empty!
+['foo'].empty
+['foo'].methods
+['foo'].methods.sort
+['foo'].delete
+[].any?
+foo = ['foo','bar']
+foo.pop
+bar
+binding.pry
+class foobar
+class Foobar
+def info
+alias_method_chain.ancestors
+class foo
+class Foo
+def bar
+puts 'blah'
+end
+Foo.responds_to?(:bar)
+Foo.respond_to?(:bar)
+Foo.new().respond_to?(:bar)
+Foo.class_methods
+Foo.methods
+Foo.methods.include?(:bar)
+Foo.instance_method
+Foo.instance_method(:bar)
+Foo.instance_method(:bfoo)
+Foo.include?(:foo)
+Foo.instance_methods
+Foo.instance_methods.include?(:foo)
+Foo.instance_methods.include?(:bar)
+PageRevision
+PageRevision.create(site: "MadisonTest", view: "Default", title: "needed more potatoes", language: "Engrish", state_id: 1, updated_by: "Jones", reviewed_by: "Fonzy")
+foo = PageRevision.create(site: "MadisonTest", view: "Default", title: "needed more potatoes", language: "Engrish", state_id: 1, updated_by: "Jones", reviewed_by: "Fonzy")
+foo
+foo.errors
+foo.state
+foo.updated_by = "gmusick"
+foo.save!
+exit
+a = [1,2,3,4,5,6,7,8,9]
+a.sort!
+a
+a.sort!{|a,b| b>a}
+1<2
+2>1
+1 <=> 2
+a.sort!{|a,b| b <=> a}
