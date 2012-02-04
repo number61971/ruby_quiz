@@ -87,25 +87,56 @@ class Number
     english.join(' ')
   end
 
-  def to_english
-    #
-    # Process number in 3-digit segments, assembling with the appropriate
-    # value indicator (e.g., thousand, million) in place
-    #
-    if @number == '0'
-      return 'zero'
-    end
+  #def to_english
+  #  #
+  #  # Process number in 3-digit segments, assembling with the appropriate
+  #  # value indicator (e.g., thousand, million) in place
+  #  #
+  #  if @number == '0'
+  #    return 'zero'
+  #  end
 
-    english = []
-    segments = segmentize.reverse
-    segments.each_index do |index|
-      segment_number = parse_hundred(segments[index])
-      if segment_number != ''
-        english.push( "#{segment_number} #{@bignums[index]}".strip )
+  #  english = []
+  #  segments = segmentize.reverse
+  #  segments.each_index do |index|
+  #    segment_number = parse_hundred(segments[index])
+  #    if segment_number != ''
+  #      english.push( "#{segment_number} #{@bignums[index]}".strip )
+  #    end
+  #  end
+
+  #  "#{@negative}#{english.reverse.join(' ')}"
+  #end
+
+  #
+  # j2's logic
+  #
+  #def to_english(number)
+  #  english_string = ""
+  #  number_string = number.to_s.reverse
+  #  parsed_array = number_string.scan(/\d{3}|\d+/)
+  #  parsed_array.each_with_index do |triplet, int|
+  #    if triplet.to_i > 0
+  #      english_string.insert(0, "#{triplet_to_english(triplet.reverse)} #{num_group_to_english(int)}")
+  #      english_string.insert(0, ', ') unless int==parsed_array.length-1
+  #    end
+  #  end
+  #  english_string.insert(0, 'negative ') if number_string.end_with?('-')
+  #  return english_string.gsub(/ +/, ' ')
+  #end
+
+  def to_english()
+    english_string = ""
+    number_string = @number.to_s.reverse
+    parsed_array = number_string.scan(/\d{3}|\d+/)
+    parsed_array.each_with_index do |triplet, int|
+      if triplet.to_i > 0
+        english_string.insert(0, "#{parse_hundred(triplet.reverse)} #{@bignums[int]}")
+        english_string.insert(0, ', ') unless int==parsed_array.length-1
       end
     end
-
-    "#{@negative}#{english.reverse.join(' ')}"
+    english_string.insert(0, "#{@negative}")
+    return english_string.gsub(/ +/, ' ')
   end
 end
 
