@@ -15,9 +15,8 @@ describe Integer do
 end
 
 describe PascalTriangle do
-  let(:triangle) { PascalTriangle.new }
-
   context "input validation" do
+    let(:triangle) { PascalTriangle.new('calculate') }
     it "should reject invalid cell input data" do
       row = "NaN"
       position = 1
@@ -63,65 +62,133 @@ describe PascalTriangle do
     end
   end
 
-  it "should calculate the value for any cell in the triangle" do
-    row = 1
-    position = 1
-    triangle.calculate(row, position).should == 1
+  context "using combinatorial formula" do
+    let(:triangle) { PascalTriangle.new('calculate') }
+    it "should calculate the value for any cell in the triangle" do
+      row = 1
+      position = 1
+      triangle.calculate(row, position).should == 1
 
-    row = 2
-    position = 1
-    triangle.calculate(row, position).should == 1
+      row = 2
+      position = 1
+      triangle.calculate(row, position).should == 1
 
-    row = 2
-    position = 2
-    triangle.calculate(row, position).should == 1
+      row = 2
+      position = 2
+      triangle.calculate(row, position).should == 1
 
-    row = 3
-    position = 1
-    triangle.calculate(row, position).should == 1
+      row = 3
+      position = 1
+      triangle.calculate(row, position).should == 1
 
-    row = 3
-    position = 2
-    triangle.calculate(row, position).should == 2
+      row = 3
+      position = 2
+      triangle.calculate(row, position).should == 2
 
-    row = 3
-    position = 3
-    triangle.calculate(row, position).should == 1
+      row = 3
+      position = 3
+      triangle.calculate(row, position).should == 1
 
-    row = 4
-    position = 1
-    triangle.calculate(row, position).should == 1
+      row = 4
+      position = 1
+      triangle.calculate(row, position).should == 1
 
-    row = 4
-    position = 2
-    triangle.calculate(row, position).should == 3
+      row = 4
+      position = 2
+      triangle.calculate(row, position).should == 3
 
-    row = 4
-    position = 3
-    triangle.calculate(row, position).should == 3
+      row = 4
+      position = 3
+      triangle.calculate(row, position).should == 3
 
-    row = 4
-    position = 4
-    triangle.calculate(row, position).should == 1
+      row = 4
+      position = 4
+      triangle.calculate(row, position).should == 1
 
-    row = 5
-    position = 1
-    triangle.calculate(row, position).should == 1
+      row = 5
+      position = 1
+      triangle.calculate(row, position).should == 1
 
-    row = 5
-    position = 2
-    triangle.calculate(row, position).should == 4
+      row = 5
+      position = 2
+      triangle.calculate(row, position).should == 4
 
-    row = 5
-    position = 3
-    triangle.calculate(row, position).should == 6
+      row = 5
+      position = 3
+      triangle.calculate(row, position).should == 6
 
-    row = 5
-    position = 4
-    triangle.calculate(row, position).should == 4
+      row = 5
+      position = 4
+      triangle.calculate(row, position).should == 4
 
-    row = 5
-    position = 5
-    triangle.calculate(row, position).should == 1
+      row = 5
+      position = 5
+      triangle.calculate(row, position).should == 1
+    end
+  end
+
+  context "building triangle rows" do
+    let(:triangle) { PascalTriangle.new('fetch') }
+    it "should return the value for any cell in the triangle" do
+      row = 1
+      position = 1
+      triangle.fetch(row, position).should == 1
+
+      row = 2
+      position = 1
+      triangle.fetch(row, position).should == 1
+
+      row = 2
+      position = 2
+      triangle.fetch(row, position).should == 1
+
+      row = 3
+      position = 1
+      triangle.fetch(row, position).should == 1
+
+      row = 3
+      position = 2
+      triangle.fetch(row, position).should == 2
+
+      row = 3
+      position = 3
+      triangle.fetch(row, position).should == 1
+
+      row = 4
+      position = 1
+      triangle.fetch(row, position).should == 1
+
+      row = 4
+      position = 2
+      triangle.fetch(row, position).should == 3
+
+      row = 4
+      position = 3
+      triangle.fetch(row, position).should == 3
+
+      row = 4
+      position = 4
+      triangle.fetch(row, position).should == 1
+
+      row = 5
+      position = 1
+      triangle.fetch(row, position).should == 1
+
+      row = 5
+      position = 2
+      triangle.fetch(row, position).should == 4
+
+      row = 5
+      position = 3
+      triangle.fetch(row, position).should == 6
+
+      row = 5
+      position = 4
+      triangle.fetch(row, position).should == 4
+
+      row = 5
+      position = 5
+      triangle.fetch(row, position).should == 1
+    end
   end
 end
