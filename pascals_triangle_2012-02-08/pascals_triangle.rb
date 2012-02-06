@@ -53,8 +53,6 @@ class PascalTriangle
       (0..row).each do |col|
         if col == 0 || col == row
           row_curr.push(1)
-        #elsif col == 1 || col == (row-1)
-        #  row_curr.push(row)
         else
           row_curr.push( row_prev[col-1] + row_prev[col] )
         end
