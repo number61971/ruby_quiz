@@ -15,8 +15,8 @@ describe Integer do
 end
 
 describe PascalTriangle do
+  let(:triangle) { PascalTriangle.new }
   context "input validation" do
-    let(:triangle) { PascalTriangle.new('calculate') }
     it "should reject invalid cell input data" do
       row = "NaN"
       position = 1
@@ -63,7 +63,6 @@ describe PascalTriangle do
   end
 
   context "using combinatorial formula" do
-    let(:triangle) { PascalTriangle.new('calculate') }
     it "should calculate the value for any cell in the triangle" do
       row = 1
       position = 1
@@ -128,7 +127,6 @@ describe PascalTriangle do
   end
 
   context "building triangle rows" do
-    let(:triangle) { PascalTriangle.new('fetch') }
     it "should return the value for any cell in the triangle" do
       row = 1
       position = 1

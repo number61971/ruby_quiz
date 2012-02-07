@@ -20,7 +20,7 @@ end
 class PascalTriangle
   attr_reader :method
 
-  def initialize(method)
+  def initialize(method='calculate')
     if ! ['calculate', 'fetch'].include?(method)
       raise InvalidPascalTriangleError.new("Valid methods are 'calculate' and 'fetch'")
     end
