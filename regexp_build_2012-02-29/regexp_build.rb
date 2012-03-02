@@ -40,6 +40,7 @@ class Regexp
         ranges.push(Range.new(array.first, array.last))
       end
     end
+    puts ranges
 
     # build regex string
     re = []
@@ -63,4 +64,5 @@ if __FILE__ == $0
   re = Regexp.build(1,2,3,4,5,3,2,4..8,6..10,56,98..110,2345,9998..10020)
   puts re.inspect
   puts re.match("blah 23 blah").inspect
+  puts re.match("blah 5 blah").inspect
 end
