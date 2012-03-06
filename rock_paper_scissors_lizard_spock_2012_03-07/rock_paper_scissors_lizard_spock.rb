@@ -1,11 +1,12 @@
 #!/usr/bin/env ruby
 
 class Player
-  attr_accessor :num_plays, :plays, :responses
+  attr_accessor :num_plays, :plays, :responses, :method, :last_response
 
-  def initialize(num_plays, plays)
+  def initialize(num_plays, plays, method)
     @num_plays = num_plays
     @plays = plays
+    @method = method
     @responses = {
       'rock'     => [{:object => 'paper',    :verb => 'covers'},
                      {:object => 'Spock',    :verb => 'vaporizes'}],
@@ -18,15 +19,22 @@ class Player
       'Spock'    => [{:object => 'paper',    :verb => 'disproves'},
                      {:object => 'lizard',   :verb => 'poisons'}],
     }
+    @last_response = nil
   end
 
-  def defeat_random(play)
+  def defeat(play)
+    self.send("defeat_#{method}", play)
+  end
+
+  def defeat_randomly(play)
     responses[play.strip].sample
   end
 
-  def defeat_without_repeating(play, last_response)
-    valid_responses = responses[play.strip].select{|response| response != last_response}
-    responses[play.strip].sample
+  def defeat_without_repeating(play)
+    valid_responses = responses[play.strip].select{|response| response[:object] != @last_response}
+    response = valid_responses.sample
+    @last_response = response[:object]
+    response
   end
 
   def format(play, response)
@@ -36,14 +44,33 @@ end
 
 
 if __FILE__ == $0
+  require 'optparse'
+  options = {:method => 'randomly'} # default
+  optparse = OptionParser.new do |opts|
+    opts.banner = %Q(Usage: ruby rock_paper_lizard_scissors_spock.rb [-r | --random | -n | --no-repeat ]
+    Script accepts input lines from stdin.
+    The first line should be the number of input plays that follow.
+    All other lines should be one of 'rock', 'paper', 'scissors', 'lizard', or 'Spock')
+    opts.on('-h', '--help', 'Display this screen') do
+      puts opts
+      exit
+    end
+    opts.on('-r', '--random', 'Randomly defeat each play (default behavior)') do
+      options[:method] = 'randomly'
+    end
+    opts.on('-n', '--no-repeat', 'Defeat each play without repeating the previous choice') do
+      options[:method] = 'without_repeating'
+    end
+  end
+  optparse.parse!
+
   plays = ARGF.collect
   num_plays = plays.next
-  player = Player.new(num_plays, plays)
+  player = Player.new(num_plays, plays, options[:method])
   last_response = nil
   for play in player.plays do
-    #response = player.defeat_random(play)
-    response = player.defeat_without_repeating(play, last_response)
+    response = player.defeat(play)
     puts player.format(play, response)
-    last_response = response
+    last_response = response[:object]
   end
 end
