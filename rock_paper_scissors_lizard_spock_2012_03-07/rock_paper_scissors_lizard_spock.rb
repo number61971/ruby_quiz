@@ -3,7 +3,7 @@
 class Player
   attr_accessor :num_plays, :plays, :responses, :method, :last_response
 
-  def initialize(num_plays, plays, method)
+  def initialize(num_plays, plays, method="randomly")
     @num_plays = num_plays
     @plays = plays
     @method = method
@@ -67,10 +67,8 @@ if __FILE__ == $0
   plays = ARGF.collect
   num_plays = plays.next
   player = Player.new(num_plays, plays, options[:method])
-  last_response = nil
   for play in player.plays do
     response = player.defeat(play)
     puts player.format(play, response)
-    last_response = response[:object]
   end
 end
