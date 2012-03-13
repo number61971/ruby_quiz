@@ -1,5 +1,6 @@
 #!/usr/bin/env ruby
 
+require 'bigdecimal'
 require 'csv'
 require 'set'
 
@@ -13,7 +14,7 @@ class Restaurant
 
   def add_menu_item(price, items)
     items = Set.new( items.each{ |item| item.strip! } )
-    @menu[items] = price.to_f
+    @menu[items] = BigDecimal.new(price)
   end
 
   def menu_items
