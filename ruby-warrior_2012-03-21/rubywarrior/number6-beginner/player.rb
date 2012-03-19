@@ -69,21 +69,33 @@ class RubyWarrior::Turn
     elsif self.feel(:backward).enemy?
       self.pivot!
     else
+      # * Shoot Wizards on sight (they die to a sigle shot, and can't be allowed to deal their massive damage)
+      # * Continue shooting provided one is healthy enough
+      # * Run away if health is getting too low
+      critical = 13
       whats_forward = self.see_closest_thing
       whats_backward = self.see_closest_thing(:backward)
       if whats_forward.enemy? && whats_backward.enemy?
         self.shoot_deadliest_enemy!
       elsif whats_forward.enemy?
-        if self.feel(:backward).empty? && self.look(:backward)[1].empty?
+        if self.identify(whats_forward) == 'Wizard'
+          self.shoot!
+        elsif self.health == critical &&
+            self.feel(:backward).empty? &&
+            self.look(:backward)[1].empty?
           self.run_away!
         else
           self.shoot!
         end
       else
-        if self.feel.empty? && self.look[1].empty?
-          warrior.walk!
+        if self.identify(whats_backward) == 'Wizard'
+          self.shoot!(:backward)
+        elsif self.health == critical &&
+            self.feel.empty? &&
+            self.look[1].empty?
+          self.walk!
         else
-          warrior.shoot!(:backward)
+          self.shoot!(:backward)
         end
       end
     end
