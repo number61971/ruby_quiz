@@ -72,7 +72,7 @@ def convert(n)
     result.reverse.join('')
   else
     # roman input
-    roman = /(M*)(C{0,3}[DM]?|DC{0,3})?(X{0,3}[LC]?|LX{0,3})?(I{0,3}[VX]?|VI{0,3})?/
+    roman = /(M{0,3})(C{0,3}[DM]?|DC{0,3})?(X{0,3}[LC]?|LX{0,3})?(I{0,3}[VX]?|VI{0,3})?/
     m = n.match(roman)
     if m[0] != ''
       result = 0
