@@ -1,4 +1,4 @@
-#/usr/bin/env ruby
+#!/usr/bin/env ruby
 
 digits = ('1'..'9').to_a
 
