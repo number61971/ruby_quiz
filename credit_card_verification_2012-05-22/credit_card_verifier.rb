@@ -41,14 +41,12 @@ class CreditCard
     digits = [] 
     @number.reverse.each_char.each_with_index { |n,i|
       if i%2 == 1
-        (n.to_i * 2).to_s.each_char { |digit|
-          digits.push(digit.to_i)
-        }
+        digits.push(n.to_i * 2)
       else
         digits.push( n.to_s.to_i )
       end
     }
-    return digits.inject(:+)
+    return digits.flatten.inject(:+)
   end
 end
 
