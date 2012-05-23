@@ -43,7 +43,7 @@ class CreditCard
       if i%2 == 1
         digits.push(n.to_i * 2)
       else
-        digits.push( n.to_s.to_i )
+        digits.push( n.to_i )
       end
     }
     return digits.flatten.inject(:+)
