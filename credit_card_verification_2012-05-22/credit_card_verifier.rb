@@ -4,7 +4,7 @@ class CreditCard
   attr_accessor :number
   
   def initialize(n)
-    @number = n.to_s.gsub(/\s+/, '')
+    @number = n.to_s.gsub(/[-\s]+/, '')
   end
 
   def to_s
