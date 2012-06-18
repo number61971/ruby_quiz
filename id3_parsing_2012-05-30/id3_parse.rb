@@ -136,8 +136,12 @@ class MP3
     @file = f
   end
 
+  def data
+    return File.new(@file)
+  end
+
   def id3_tag
-    f = File.new(@file)
+    f = self.data
     begin
       f.seek(-128, IO::SEEK_END)
     rescue
@@ -170,7 +174,6 @@ end
 
 if __FILE__ == $0
   ARGV.each do |arg|
-    mp3 = MP3.new(arg)
-    puts mp3.id3_tag
+    puts MP3.new(arg).id3_tag
   end
 end
