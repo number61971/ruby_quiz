@@ -3,6 +3,7 @@
 #
 # recursive
 #
+%Q(
 def chop(int, array, idx=0)
   if array.length == 0 || int < array[0] || int > array[-1]
     return -1
@@ -19,11 +20,11 @@ def chop(int, array, idx=0)
     return chop(int, bottom, (idx + top.length))
   end
 end
+)
 
 #
 # looping
 #
-%Q(
 def chop(int, array)
   idx = 0
   while array.length > 0 && int >= array[0] && int <= array[-1]
@@ -37,7 +38,7 @@ def chop(int, array)
     elsif int == top[-1]
       # the integer has been found, and the array is 1 or 2 elements in length
       if top.length > 1
-        idx += top.length - 1
+        idx += 1
       end
       return idx
     else
@@ -46,7 +47,6 @@ def chop(int, array)
     end
   end
 
-  # if loop wasn't entered, integer wasn't present in array
+  # if loop wasn't entered or didn't return a value, integer wasn't present in array
   return -1
 end
-)
