@@ -8,7 +8,7 @@ f.seek(0)
 f.readlines.each_with_index do |word, i|
   anagrams = []
   letters = word.strip.downcase.chars.to_a
-  if letters.length < 5
+  if letters.length < 15
     permutations = letters.permutation.to_a.uniq
     puts "#{i} #{word.strip}: #{permutations.length} potential anagrams..."
     permutations.each do |p|
@@ -18,7 +18,7 @@ f.readlines.each_with_index do |word, i|
     end
     all_anagrams << anagrams.sort if anagrams.length > 1
   end
-  break if i > 1000
+  break if i > 10
 end
 
 all_anagrams = all_anagrams.uniq.sort { |a,b| b.length <=> a.length }

@@ -23,6 +23,6 @@ for i, word in enumerate(f.readlines()):
       all_anagrams.append( tuple(sorted(anagrams)) ) 
   if i > 1000: break
 
-all_anagrams = sorted(list(set(all_anagrams)), lambda a,b: cmp(len(b), len(a)))
+all_anagrams = sorted(set(all_anagrams), lambda a,b: cmp(len(b), len(a)))
 for a in all_anagrams:
   print a
