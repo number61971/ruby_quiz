@@ -2,7 +2,7 @@
 
 states = { 0 => 'closed', 1 => 'open' }
 
-doors = (1..100).map { |n| 0 } # all doors start closed
+doors = Array.new(100, 0)
 (1..100).each do |pass|
   doors.each_with_index do |door,i|
     if (i + 1) % pass == 0
