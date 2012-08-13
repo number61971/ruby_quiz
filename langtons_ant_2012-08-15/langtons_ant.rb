@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 class Grid
-  # NOTE: Using 1 to represent black, -1 to represent white
+  # NOTE: Using 1 to represent white, -1 to represent black
   attr_accessor :grid
   attr_reader :x, :y
 
