@@ -12,7 +12,7 @@ class Player
   end
 
   def win?
-    @chosen_door == 'car'
+    @chosen_door == :car
   end
 end
 
@@ -36,13 +36,13 @@ class Game
   attr_accessor :doors, :player
 
   def initialize(player_type)
-    @doors = ['goat','goat','car'].shuffle
+    @doors = [:goat, :goat, :car].shuffle
     @player = player_type.new(@doors)
   end
 
   def lets_make_a_deal
     @doors.delete_at( @doors.index(@player.chosen_door) )
-    @doors.delete_at( @doors.index('goat') )
+    @doors.delete_at( @doors.index(:goat) )
     @player.make_deal(@doors[0])
     @player.win?
   end
@@ -50,7 +50,7 @@ end
 
 
 if __FILE__ == $0
-  simulations = ARGV[0].to_i ||= 1000
+  simulations = (ARGV[0] ||= 1000).to_i
   [Steadfast, Fickle].each do |player|
     wins = 0
     (1..simulations).each do |sim|
