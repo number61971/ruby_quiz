@@ -183,7 +183,8 @@ class Blackjack
   end
 
   def play
-    puts "CASINO RUBY BLACKJACK".center(80)
+    puts
+    puts "$$ CASINO RUBY BLACKJACK $$".center(80)
     puts "Practice against Casino Ruby before losing it all in Vegas".center(80)
     puts
 
@@ -201,75 +202,90 @@ class Blackjack
       continue = self.next_game
     end
 
-    puts
-    puts "The Final Tally".center(80)
+    puts "\n"
+    puts "+++++ The Final Tally +++++".center(80)
     puts "Out of #{@house[:games]} games played:"
     @players.each do |player_num, player|
-      puts "Player #{player_num} won #{@player[:wins]} " +
-           "and pushed #{@player[:pushes]}."
+      puts "Player #{player_num} won #{player[:wins]} " +
+           "and pushed #{player[:pushes]}."
     end
   end
 
   def next_game
     @house[:games] += 1
     continue = true
+    puts "\n"
+    puts "===== GAME #{@house[:games]} =====".center(80)
 
-    if @shoe.size < (4 * (@players.size + 1))
-      puts "\n\nFINAL ROUND!".center(80)
+    if @shoe.size <= (6 * (@players.size + 1))
+      puts "FINAL ROUND!".center(80)
       continue = false
     end
 
     self.deal_initial_hands
 
     # each player plays their turn
+    busts = 0
     @players.each do |player_num, player|
-      puts
       self.print_status
       hand = player[:hand]
       while !(hand.blackjack? || hand.bust?) && hand.value < 21 do
+        if @shoe.size == 1
+          puts "Player #{player_num}: Sorry! Last card in shoe goes to HOUSE."
+          break
+        end
         response = prompt("Player #{player_num}: Hit or Stand? [h/s] ").downcase
         raise "'#{response}' is an invalid response" if
-          !(response.start_with?('h') || response.start_with?('s'))
+            !(response.start_with?('h') || response.start_with?('s'))
         break if response.start_with?('s')
         hand.hit!(@shoe.deal)
         self.print_player_status(player_num, player)
       end
+      busts += 1 if hand.bust?
     end
 
-    # the house plays
-    hand = @house[:hand]
-    while !(hand.blackjack? || hand.bust?) && hand.value < 18 do
-      hand.hit!(@shoe.deal)
+    # the house plays, if necessary
+    if busts < @players.size
+      hand = @house[:hand]
+      while @shoe.size > 0 &&
+          !(hand.blackjack? || hand.bust?) && hand.value < 18 do
+        hand.hit!(@shoe.deal)
+        puts "HOUSE hits..."
+      end
     end
 
     # show results
-    puts "Game #{@house[:games]} Results".center(80)
+    puts "-- Game #{@house[:games]} Results --".center(80)
     self.print_status
     @players.each do |player_num, player|
+      result = "Loss!"
       print "Player #{player_num}: "
       if @house[:hand].blackjack?
         if player[:hand].blackjack?
           player[:pushes] += 1
-          puts "push"
+          result = "push"
         end
       elsif player[:hand].blackjack?
         player[:wins] += 1
-        puts "Win!"
+        result = "Win!"
       elsif player[:hand].bust? && @house[:hand].bust?
         player[:pushes] += 1
-        puts "push"
+        result = "push"
       else
         if @house[:hand].bust?
           player[:wins] += 1
-          puts "Win!"
+          result = "Win!"
+        elsif player[:hand].bust?
+          result = "Loss!"
         elsif player[:hand].value == @house[:hand].value
           player[:pushes] += 1
-          puts "push"
+          result = "push"
         elsif player[:hand].value > @house[:hand].value
           player[:wins] += 1
-          puts "Win!"
+          result = "Win!"
         end
       end
+      puts result
     end
     
     # another game?
@@ -291,13 +307,11 @@ class Blackjack
   end
   
   def deal_one_card_to_each_player
-    @players.each do |player_num, player|
-      player[:hand].hit!(@shoe.deal)
-    end
+    @players.each { |player_num, player| player[:hand].hit!( @shoe.deal ) }
   end
 
   def print_status
-    puts "\nHOUSE: #{@house[:hand]} #{self.blackjack_or_bust(@house[:hand])}"
+    puts "\nHOUSE: #{@house[:hand]}  #{self.blackjack_or_bust(@house[:hand])}"
     @players.each do |player_num, player|
       self.print_player_status(player_num, player)
     end
@@ -305,13 +319,13 @@ class Blackjack
   end
 
   def print_player_status(player_num, player)
-    puts "Player #{player_num}: #{player[:hand]} " +
+    puts "Player #{player_num}: #{player[:hand]}  " +
         "#{self.blackjack_or_bust(player[:hand])}"
   end
 
   def blackjack_or_bust(hand)
-    return "Blackjack!" if hand.blackjack?
-    return "Bust!" if hand.bust?
+    return "** Blackjack! **" if hand.blackjack?
+    return "** Bust! **" if hand.bust?
     return ""
   end
 end
