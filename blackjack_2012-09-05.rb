@@ -53,6 +53,10 @@ class Card
     "#{@_face[:display]}#{@_suit[:display]}"
   end
 
+  def inspect
+    "<Card:#{self.object_id} #{self.face} of #{self.suit}>"
+  end
+
   def +(other)
     if other.is_a?(Card)
       self.value + other.value
@@ -111,6 +115,10 @@ class Deck
   def sort!
     @cards.sort!
   end
+
+  def to_s
+    "<Deck:#{self.object_id} #{self.size} Cards>"
+  end
 end
 
 
@@ -122,6 +130,10 @@ class Shoe < Deck
           ![1,2,4,6,8].include?(num_decks)
     @cards = []
     (1..num_decks).each { |n| @cards.concat( Deck.new(faces, suits).cards ) }
+  end
+
+  def to_s
+    "<Shoe:#{self.object_id} #{self.size} Cards>"
   end
 end
 
@@ -135,6 +147,10 @@ class Hand
 
   def to_s
     @cards.collect { |card| card.to_s }.join('  ')
+  end
+
+  def inspect
+    "<Hand:#{self.object_id} #{@cards.inspect}>"
   end
 
   def size
