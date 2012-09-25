@@ -8,7 +8,14 @@ def factorial_recursive(n)
   end
 end
 
-def fibonacci_y(n)
+def factorial_y(f)
+  lambda do |n|
+    if n == 0
+      return 1
+    else
+      return n * f.call(n-1)
+    end
+  end
 end
 
 
@@ -22,7 +29,16 @@ def fibonacci_recursive(n)
   end
 end
 
-def fibonacci_y(n)
+def fibonacci_y(f)
+  lambda do |n|
+    if n == 0
+      return 0
+    elsif n == 1
+      return 1
+    else
+      return f.call(n-1) + f.call(n-2)
+    end
+  end
 end
 
 #####
@@ -35,4 +51,10 @@ end
 def fibonacci(n)
   fibonacci_recursive(n)
   #fibonacci_y(n)
+end
+
+
+if __FILE__ == $0
+  fac = factorial_y(lambda {|n| n+1})
+  puts fac.call(3)
 end
