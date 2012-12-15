@@ -20,7 +20,7 @@ class LimitedInteger
     [self.value, other]
   end
 
-  def +@(other)
+  def +(other)
     if other.is_a?(LimitedInteger)
       self.value + other.value
     elsif other.is_a?(Fixnum)
