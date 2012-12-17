@@ -75,7 +75,7 @@ class Date
   # Discordian Holydays
   #
   def st_tibs_day?
-    month == 2 && day == 29
+    leap? && yday == 60
   end
 
   def mungday?
