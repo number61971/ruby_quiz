@@ -127,6 +127,36 @@ class Date
   end
 end
 
+
+class DiscDate
+  def self.create(dyear, dmonth, dday)
+    if (dmonth == 0 && dday != 0) || (dmonth != 0 && dday == 0)
+      raise "Use 0 for both the Discordian month and day to indicate St Tib's Day."
+    else
+      calyear = dyear - 1166
+      if dmonth == 0 && dday == 0
+        d = Date.new(dyear, 2, 29)
+      else
+        leap_adjust = Date.new(calyear,1,1).leap? && self.discyday(dmonth, dday) > 59 ? 1 : 0
+        calday = self.discyday(dmonth, dday) + leap_adjust
+        monthdays = [31, 28+leap_adjust, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+        calmonth = 1
+        while calday > monthdays[0]
+          calday -= monthdays.shift
+          calmonth += 1
+        end
+        d = Date.new(calyear, calmonth, calday)
+      end
+      d
+    end
+  end
+
+  def self.discyday(dmonth, dday)
+    ((dmonth - 1) * 73) + dday
+  end
+end
+
+
 if __FILE__ == $0
   d = Date.today
   if d.st_tibs_day?
