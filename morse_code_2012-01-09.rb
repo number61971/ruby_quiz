@@ -48,8 +48,8 @@ MORSE_CODE = {
 
 
 MORSE_SOUNDS = {
-  '.' => 'afplay "/Users/damon/Music/iTunes/iTunes Media/Tones/censor-beep-1.m4r"',
-  '-' => 'afplay "/Users/damon/Music/iTunes/iTunes Media/Tones/censor-beep-3.m4r"',
+  '.' => 'afplay "/Users/damon/Music/iTunes/iTunes Media/Tones/morse_dot.m4r"',
+  '-' => 'afplay "/Users/damon/Music/iTunes/iTunes Media/Tones/morse_dash.m4r"',
 }
 
 
@@ -67,10 +67,10 @@ class TextConverter
         morse.each_char do |m|
           system MORSE_SOUNDS[m] if m != ' '
           print "\a#{m} "
-          m == ' ' ? sleep(0.6) : sleep(0.15)
+          m == ' ' ? sleep(0.4) : sleep(0.1)
         end
         print "  " 
-        sleep(0.45)
+        sleep(0.3)
       end
     end
   end
