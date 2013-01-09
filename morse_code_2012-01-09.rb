@@ -66,7 +66,7 @@ class TextConverter
       if morse
         morse.each_char do |m|
           system MORSE_SOUNDS[m] if m != ' '
-          print "\a#{m} "
+          print "#{m} "
           m == ' ' ? sleep(0.4) : sleep(0.1)
         end
         print "  " 
